@@ -22,7 +22,7 @@ function Chat({ socket, username, room }) {
           ":" +
           new Date(Date.now()).getMinutes(),
       };
-      // Emitting a "send_message" event to the server with the message data
+      // Emitting a "send_message"  event to the server with the message data
       await socket.emit("send_message", messageData);
       // Updating the message list with the new message
       setMessageList((list) => [...list, messageData]);
