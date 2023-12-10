@@ -18,3 +18,19 @@ const io = new Server(server, {
     methods: ["GET", "POST"],
   },
 });
+// Handling socket connections
+io.on("connection", (socket) => {
+  // Logging when a user connects
+  console.log(`User Connected: ${socket.id}`);
+
+  // Handling disconnection
+  socket.on("disconnect", () => {
+    // Logging when a user disconnects
+    console.log("User Disconnected", socket.id);
+  });
+});
+
+// Starting the server on port 3001 and logging a message when it starts
+server.listen(3001, () => {
+  console.log("Server Started");
+});
