@@ -38,4 +38,38 @@ function Chat({ socket, username, room }) {
       setMessageList((list) => [...list, data]);
     });
   }, [socket]);
+
+  // Rendering the chat window
+  return (
+    <div className="chat-window">
+    {/* Chat header */}
+    <div className="chat-header">
+      <p>Live Chat</p>
+    </div>
+    {/* Chat body with automatic scrolling */}
+    <div className="chat-body">
+        <ScrollToBottom className="message-container"></ScrollToBottom>
+    </div>
+    {/* Chat footer with input for typing messages and a send button */}
+    <div className="chat-footer">
+        <input
+          type="text"
+          value={currentMessage}
+          placeholder="Hey..."
+          // Handling input changes
+          onChange={(event) => {
+            setCurrentMessage(event.target.value);
+          }}
+          // Handling Enter key press to send messages
+          onKeyPress={(event) => {
+            event.key === "Enter" && sendMessage();
+          }}
+        />
+        {/* Button to send messages */}
+        <button onClick={sendMessage}>&#9658;</button>
+    </div>
+    </div>
+  );
 }
+// Exporting the Chat component as the default export
+export default Chat;
