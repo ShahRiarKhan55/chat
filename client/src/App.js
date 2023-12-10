@@ -11,7 +11,37 @@ import Chat from "./Chat";
 const socket = io.connect("http://localhost:3001");
 
 function App() {
-  return <div className="App"></div>;
+  return (
+    <div className="App">
+      {!showChat ? (
+        // Rendering the join chat container if showChat is false
+        <div className="joinChatContainer">
+          <h3>Join Chat</h3>
+          {/* Input for entering the username */}
+          <input
+            type="text"
+            placeholder="Adib..."
+            onChange={(event) => {
+              setUsername(event.target.value);
+            }}
+          />
+          {/* Input for entering the room ID */}
+          <input
+            type="text"
+            placeholder="Room ID..."
+            onChange={(event) => {
+              setRoom(event.target.value);
+            }}
+          />
+          {/* Button to trigger the joinRoom function */}
+          <button onClick={joinRoom}> Join A Room</button>
+        </div>
+      ) : (
+        // Rendering the Chat component if showChat is true
+        <Chat socket={socket} username={username} room={room}></Chat>
+      )}
+    </div>
+  );
 }
 
 export default App;
