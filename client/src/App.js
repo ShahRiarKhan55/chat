@@ -11,6 +11,22 @@ import Chat from "./Chat";
 const socket = io.connect("http://localhost:3001");
 
 function App() {
+  // State variables for managing username, room, and whether to show the chat component
+  const [username, setUsername] = useState("");
+  const [room, setRoom] = useState("");
+  const [showChat, setShowChat] = useState(false);
+
+  // Function to handle joining a chat room
+  const joinRoom = () => {
+    // Checking if both username and room are provided
+    if (username !== "" && room !== "") {
+      // Emitting a "join_room" event to the server with the room information
+      socket.emit("join_room", room);
+      // Setting showChat to true to render the Chat component
+      setShowChat(true);
+    }
+  };
+  
   return (
     <div className="App">
       {!showChat ? (
@@ -43,5 +59,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
