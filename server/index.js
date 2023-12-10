@@ -23,6 +23,20 @@ io.on("connection", (socket) => {
   // Logging when a user connects
   console.log(`User Connected: ${socket.id}`);
 
+  // Handling "join_room" event
+  socket.on("join_room", (data) => {
+    // Joining a specific room and logging the event
+    socket.join(data);
+    console.log(`User with ID: ${socket.id} joined room: ${data}`);
+  });
+
+  // Handling "send_message" event
+  socket.on("send_message", (data) => {
+    // Logging the received message and emitting "receive_message" event to the room
+    console.log("Received message:", data);
+    socket.to(data.room).emit("receive_message", data);
+  });
+
   // Handling disconnection
   socket.on("disconnect", () => {
     // Logging when a user disconnects
